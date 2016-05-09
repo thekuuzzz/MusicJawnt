@@ -8,7 +8,15 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
+    
 </p>
+
+    columns: grid.Columns(
+        grid.Column("Id", "Item Id"),
+        grid.Column("Name", "Name"),
+        grid.Column("Description", "Description")
+     )
+    )
 <table class="table">
     <tr>
         <th>
@@ -23,7 +31,8 @@
         <th>
             @Html.DisplayNameFor(model => model.Price)
         </th>
-        <th></th>
+        <th>
+           </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -39,6 +48,10 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Likes)
+            @Html.ActionLink("Like", "Likes", new { item.Likes })
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.AlbumID }) |

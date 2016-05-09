@@ -19,9 +19,41 @@ namespace Music.Controllers
         {
             var albums = db.Albums.Include(a => a.Artist).Include(a => a.Genre);
             return View(albums.ToList());
+
         }
 
-        public ActionResult ShowSomeAlbums(int id)
+        //searchy
+       /* public ActionResult SearchIndex(String genre, String criteria)
+        {
+            var albums = db.Albums.Include(a => a.Artist).Include(a => a.Genre);
+            string searchString = criteria;
+            var result = from m in db.Albums select m;
+
+            // Search by genre
+            var list = new List<string>();
+            var query = from d in db.Albums
+                        orderby d.Genre
+                        select d.Genre;
+            var qString = query.Distinct();
+
+
+            list.Add(qString.ToString());
+            ViewBag.genre = new SelectList(list);
+
+            if (!String.IsNullOrEmpty(criteria))
+            {
+                result = db.Albums.Where(a => a.Album.Contains(criteria));
+            }
+
+            if (!String.IsNullOrEmpty(genre))
+            {
+                result = db.Albums.Where(a => a.Genre.ToString() == genre);
+            }
+
+            return View(result);
+        }
+
+      */  public ActionResult ShowSomeAlbums(int id)
         {
             var albums = db.Albums
                 .Include(a => a.Artist)
@@ -139,7 +171,28 @@ namespace Music.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        // POST: Albums/Like
+        [HttpPost, ActionName("Like")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Like(int id)
+        {
+            Album album = db.Albums.Find(id);
+            var like = db.Albums.Select(album.Likes);
+            like =like + 1;
+            db.Albums.Add(like);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
+
+        /*public ActionResult List()
+        {
+            IEnumerable<Album> model =
+             
+
+            return View(model);
+        }
+        */
         protected override void Dispose(bool disposing)
         {
             if (disposing)

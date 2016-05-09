@@ -17,7 +17,7 @@ namespace Music.Controllers
         // GET: Genres
         public ActionResult Index()
         {
-            var genre = db.Genres.Include(a => a.GenreID).Include(a => a.Name).Include(a => a.Albums);
+            var genre = db.Genres.Include(a => a.Albums);
             return View(genre.ToList());
         }
 

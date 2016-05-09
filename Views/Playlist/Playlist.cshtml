@@ -1,0 +1,22 @@
+﻿@{
+    var db = Database.Open("Albums");
+    var query = "SELECT * FROM Albums Where playlist = 1";
+}
+<html>
+<body>
+    <h1>Music Playlists</h1>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Info</th>
+        </tr>
+        @foreach (var row in db.Query(query))
+        {
+            <tr>
+                <td>@row.Name</td>
+                <td style="text-align:right">@row.Info</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

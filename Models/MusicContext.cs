@@ -19,6 +19,7 @@ namespace Music.Models
         {
         }
 
+
         public System.Data.Entity.DbSet<Music.Models.Album> Albums { get; set; }
 
         public System.Data.Entity.DbSet<Music.Models.Artist> Artists { get; set; }
